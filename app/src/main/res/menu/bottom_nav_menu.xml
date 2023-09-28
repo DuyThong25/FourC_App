@@ -5,11 +5,13 @@
     <item
         android:id="@+id/home"
         android:title="Trang chủ"
+
         android:icon="@drawable/ic_baseline_home_24"/>
     <item
         android:id="@+id/order"
         android:title="Đặt hàng"
-        android:icon="@drawable/ic_baseline_restaurant_menu_24"/>
+        android:icon="@drawable/ic_baseline_restaurant_menu_24" />
+
     <item
         android:id="@+id/orderHistory"
         android:title="Hoạt động"
