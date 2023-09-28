@@ -3,7 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/activity_main.xml" value="0.176" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_others_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_restaurant_menu_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_settings_backup_restore_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_storefront_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/activity_main.xml" value="0.4" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/menu/bottomnav_menu.xml" value="0.24895833333333334" />
       </map>
     </option>
   </component>
