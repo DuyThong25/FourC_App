@@ -1,7 +1,5 @@
 package com.example.myapplication.DatabaseManager;
 
-import com.example.myapplication.ConSql;
-
 import java.sql.Connection;
 
 public class DatabaseManager {

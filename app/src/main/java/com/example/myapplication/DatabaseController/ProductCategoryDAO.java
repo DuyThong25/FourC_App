@@ -1,12 +1,8 @@
 package com.example.myapplication.DatabaseController;
 
-import android.content.Context;
-
-import com.example.myapplication.ConSql;
 import com.example.myapplication.DatabaseManager.DatabaseManager;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;

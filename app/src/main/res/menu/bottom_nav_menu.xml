@@ -8,12 +8,12 @@
 
         android:icon="@drawable/ic_baseline_home_24"/>
     <item
-        android:id="@+id/order"
+        android:id="@+id/menu"
         android:title="Đặt hàng"
         android:icon="@drawable/ic_baseline_restaurant_menu_24" />
 
     <item
-        android:id="@+id/orderHistory"
+        android:id="@+id/ordersHistory"
         android:title="Hoạt động"
         android:icon="@drawable/ic_baseline_settings_backup_restore_24"/>
     <item
@@ -21,7 +21,7 @@
         android:title="Cửa hàng"
         android:icon="@drawable/ic_baseline_storefront_24"/>
     <item
-        android:id="others"
+        android:id="@+id/others"
         android:title="Khác"
         android:icon="@drawable/ic_baseline_others_24"/>
 </menu>
