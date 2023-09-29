@@ -2,6 +2,7 @@ package com.example.myapplication.RecyclerViewAdapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +19,13 @@ import java.util.ArrayList;
 
 public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProductAdapter.ViewHolder> {
     ArrayList<String> listCategoryName;
+    ArrayList<Integer> listCategoryImage;
+
     Context context;
 
-    public CategoryProductAdapter(Context context, ArrayList<String> listCategoryName) {
+    public CategoryProductAdapter(Context context, ArrayList<String> listCategoryName, ArrayList<Integer> listCategoryImage) {
         this.listCategoryName = listCategoryName;
+        this.listCategoryImage = listCategoryImage;
         this.context = context;
     }
 
@@ -37,6 +41,7 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.textView_CategoryProduct.setText(this.listCategoryName.get(position));
 
+        holder.imageView_CategoryProduct.setImageResource(this.listCategoryImage.get(position));
         holder.textView_CategoryProduct.setOnClickListener(item -> {
             System.out.println("Ban da bam vao " + item.getContext().toString());
         });
