@@ -29,6 +29,7 @@ import java.sql.Statement;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView mnBottom;
+    // Sử dụng này để khỏi sử dụng findViewById cho các phần tử trong layout
     ActivityMainBinding binding;
 
     @Override

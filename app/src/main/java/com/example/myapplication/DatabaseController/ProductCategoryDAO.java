@@ -7,13 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ProductCategoryDAO {
     Connection connection = DatabaseManager.getInstance().getConnection();
 
-    public List<String> getAllProductCategory() {
-        List<String> nameCategory = new ArrayList<>();
+    public ArrayList<String> getAllProductCategory() {
+        ArrayList<String> nameCategory = new ArrayList<>();
         try{
                 String sqlStatement = "Select * From tb_ProductCategory;";
                 Statement stm = connection.createStatement();
@@ -24,6 +25,7 @@ public class ProductCategoryDAO {
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
+        Collections.sort(nameCategory);
         return nameCategory;
     }
 }
