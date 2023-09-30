@@ -18,7 +18,6 @@ import com.example.myapplication.Model.Product;
 import com.example.myapplication.R;
 
 import java.text.DecimalFormat;
-import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
@@ -40,23 +39,26 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.TitleProduct.setText(this.productArrayList.get(position).getTitleProduct());
+        Product product = productArrayList.get(position);
 
-        if (this.productArrayList.get(position).getPriceSaleProduct() == 0.00) {
+        holder.TitleProduct.setText(product.getTitleProduct());
+        // Chuyển kiểu double thành string và sau đó đặt vào text view
+        holder.PriceSaleProduct.setText(String.format(new DecimalFormat("#,### đ")
+                .format(product.getPriceSaleProduct())));
+        holder.PriceProduct.setText(String.format(String.format(new DecimalFormat("#,### đ")
+                .format(product.getPriceProduct()))));
+
+        if (product.getPriceSaleProduct() == 0.00) {
             holder.PriceSaleProduct.setText(holder.PriceProduct.getText());
             holder.PriceProduct.setVisibility(View.GONE);
         } else {
-            // Chuyển kiểu double thành string và sau đó đặt vào text view
-            holder.PriceSaleProduct.setText(String.format(new DecimalFormat("#,### đ")
-                    .format(this.productArrayList.get(position).getPriceSaleProduct())));
-            holder.PriceProduct.setText(String.format(String.format(new DecimalFormat("#,### đ")
-                    .format(this.productArrayList.get(position).getPriceProduct()))));
+
             // Tạo underline cho price
             holder.PriceProduct.setPaintFlags(holder.PriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            holder.DescriptionProduct.setText(this.productArrayList.get(position).getDescriptionProduct());
         }
+        holder.DescriptionProduct.setText(product.getDescriptionProduct());
 
-        String urlImage = this.productArrayList.get(position).getImageProduct();
+        String urlImage = product.getImageProduct();
         if (urlImage != null) {
             urlImage = "http://anhthanh260599-001-site1.ftempurl.com" + urlImage;
             Glide.with(context)

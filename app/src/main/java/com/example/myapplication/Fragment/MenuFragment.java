@@ -2,30 +2,36 @@ package com.example.myapplication.Fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.DatabaseController.ProductCategoryDAO;
 import com.example.myapplication.DatabaseController.ProductDAO;
 import com.example.myapplication.Model.Product;
+import com.example.myapplication.Model.ProductCategory;
+import com.example.myapplication.Model.ProductCategorySelectedManager;
 import com.example.myapplication.R;
 import com.example.myapplication.RecyclerViewAdapter.CategoryProductAdapter;
 import com.example.myapplication.RecyclerViewAdapter.ProductAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment {
+public class MenuFragment extends Fragment implements CategoryProductAdapter.Listener{
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,10 +41,13 @@ public class MenuFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    private ArrayList<String> listCategoryName;
+    private ArrayList<ProductCategory> listCategoryName = new ArrayList<>();
     private ArrayList<Integer> listCategoryImage = new ArrayList<>();
-    private ArrayList<Product> productArrayList;
-
+    private ArrayList<Product> productArrayList = new ArrayList<>();
+    private RecyclerView recyclerView_Product;
+    private RecyclerView recyclerView_Category;
+    private static ProductAdapter productAdapter;
+    private ArrayList<Product> productArrayListFilter = new ArrayList<>();
 
     public MenuFragment() {
         // Required empty public constructor
@@ -69,7 +78,6 @@ public class MenuFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
     }
 
     @Override
@@ -84,30 +92,34 @@ public class MenuFragment extends Fragment {
         // Inflate the layout for this fragment
         return view;
     }
-    //List product
 
+    //List product
     private void InitRecyclerView_Product(View view) {
         LoadData_Product();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_Product);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        ProductAdapter productAdapter = new ProductAdapter(view.getContext(), productArrayList);
-        recyclerView.setAdapter(productAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
+        recyclerView_Product = view.findViewById(R.id.recycler_view_Product);
+        recyclerView_Product.setLayoutManager(linearLayoutManager);
+        productAdapter = new ProductAdapter(view.getContext(), productArrayListFilter);
+        recyclerView_Product.setAdapter(productAdapter);
+        recyclerView_Product.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
+
     }
+
     private void LoadData_Product() {
         ProductDAO productDAO = new ProductDAO();
         productArrayList = productDAO.getAllProduct();
+        productArrayListFilter = new ArrayList<>(productArrayList);
     }
+
     // Category of Product
     private void InitRecyclerView_Category(View view) {
         LoadData_Category();
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_Category);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        CategoryProductAdapter categoryProductAdapter = new CategoryProductAdapter(view.getContext(), listCategoryName, listCategoryImage);
-        recyclerView.setAdapter(categoryProductAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.HORIZONTAL));
+        recyclerView_Category = view.findViewById(R.id.recycler_view_Category);
+        recyclerView_Category.setLayoutManager(linearLayoutManager);
+        CategoryProductAdapter categoryProductAdapter = new CategoryProductAdapter(view.getContext(), listCategoryName, listCategoryImage, MenuFragment.this);
+        recyclerView_Category.setAdapter(categoryProductAdapter);
+        recyclerView_Category.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.HORIZONTAL));
     }
 
     private void LoadData_Category() {
@@ -118,5 +130,22 @@ public class MenuFragment extends Fragment {
         this.listCategoryImage.add(R.drawable.coffee_machine);
         this.listCategoryImage.add(R.drawable.tea);
         this.listCategoryImage.add(R.drawable.iced_coffee);
+    }
+
+    @Override
+    public void onItemListener_Category(int pos, ProductCategory productCategory) {
+        ProductCategorySelectedManager.getInstance().setSelectedCategoryId(this.listCategoryName.get(pos).getProductCategoryID());
+        int categoryId = ProductCategorySelectedManager.getInstance().getSelectedCategoryId();
+
+        ArrayList<Product> newProducts = new ArrayList<>();
+
+        for (int i = 0; i < productArrayList.size(); i++) {
+            if (productArrayList.get(i).getIdProductCategory() == categoryId) {
+                newProducts.add(productArrayList.get(i));
+            }
+        }
+        productArrayListFilter.clear();
+        productArrayListFilter.addAll(newProducts);
+        productAdapter.notifyDataSetChanged();
     }
 }
