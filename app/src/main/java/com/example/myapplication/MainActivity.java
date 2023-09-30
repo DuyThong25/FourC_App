@@ -44,11 +44,12 @@ public class MainActivity extends AppCompatActivity {
         DatabaseManager.getInstance();
 
 //        ProductDAO productDAO = new ProductDAO();
-//        ArrayList<Product> productArrayList = new ArrayList<>();
-//        productArrayList = productDAO.getAllProduct();
-//        for (Product product : productArrayList) {
-//            System.out.println("Xuat du lieuuuuuuuuuuuuuu " + product.getTitleProduct());
+//        ArrayList<String> productArrayList = new ArrayList<>();
+//        productArrayList = productDAO.getAllImageProductDefault();
+//        for (String product : productArrayList) {
+//            System.out.println("Xuat du lieuuuuuuuuuuuuuu " + product);
 //        }
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //Set fragment default la home

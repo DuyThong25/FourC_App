@@ -12,14 +12,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.Model.Product;
 import com.example.myapplication.R;
 
 import java.text.DecimalFormat;
+import java.text.Normalizer;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     ArrayList<Product> productArrayList = new ArrayList<>();
+
     Context context;
 
     public ProductAdapter(Context context, ArrayList<Product> productArrayList) {
@@ -37,27 +41,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.TitleProduct.setText(this.productArrayList.get(position).getTitleProduct());
-        // Chuyển kiểu double thành string và sau đó đặt vào text view
-        holder.PriceSaleProduct.setText(String.format(new DecimalFormat("#,### đ")
-                .format(this.productArrayList.get(position).getPriceSaleProduct())));
-        holder.PriceProduct.setText(String.format(String.format(new DecimalFormat("#,### đ")
-                .format(this.productArrayList.get(position).getPriceProduct()))));
 
-        // Tạo underline cho price
-        holder.PriceProduct.setPaintFlags(holder.PriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-        holder.DescriptionProduct.setText(this.productArrayList.get(position).getDescriptionProduct());
+        if (this.productArrayList.get(position).getPriceSaleProduct() == 0.00) {
+            holder.PriceSaleProduct.setText(holder.PriceProduct.getText());
+            holder.PriceProduct.setVisibility(View.GONE);
+        } else {
+            // Chuyển kiểu double thành string và sau đó đặt vào text view
+            holder.PriceSaleProduct.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(this.productArrayList.get(position).getPriceSaleProduct())));
+            holder.PriceProduct.setText(String.format(String.format(new DecimalFormat("#,### đ")
+                    .format(this.productArrayList.get(position).getPriceProduct()))));
+            // Tạo underline cho price
+            holder.PriceProduct.setPaintFlags(holder.PriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            holder.DescriptionProduct.setText(this.productArrayList.get(position).getDescriptionProduct());
+        }
 
-        String name1 = formatLinkNameProduct1(this.productArrayList.get(position).getTitleProduct());
-
-        String url ="http://anhthanh260599-001-site1.ftempurl.com/Uploads/images/SanPham/" + name1;
-        System.out.println("URLLLLLLLLLLLLLLLLLL: " + position + " is: " + url);
-        //Image
-//        Glide
-//                .with(context)
-//                .asBitmap()
-//                .load(url)
-//                .centerCrop()
-//                .into(holder.imageView_product);
+        String urlImage = this.productArrayList.get(position).getImageProduct();
+        if (urlImage != null) {
+            urlImage = "http://anhthanh260599-001-site1.ftempurl.com" + urlImage;
+            Glide.with(context)
+                    .load(urlImage)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .fitCenter()
+                    .into(holder.imageView_product);
+        } else {
+            holder.imageView_product.setImageResource(R.drawable.no_image);
+        }
     }
 
     @Override
@@ -81,19 +91,4 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         }
     }
 
-    public String formatLinkNameProduct1(String input) {
-        String[] words = input.split(" ");
-        StringBuilder result = new StringBuilder();
-
-        for (String word : words) {
-            if (!word.isEmpty()) {
-                // Loại bỏ các dấu và viết hoa chữ cái đầu tiên của từ
-                String cleanedWord = word.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
-                cleanedWord = Character.toUpperCase(cleanedWord.charAt(0)) + cleanedWord.substring(1);
-
-                result.append(cleanedWord);
-            }
-        }
-        return result.toString();
-    }
 }

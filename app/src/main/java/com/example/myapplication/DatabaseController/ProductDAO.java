@@ -17,8 +17,9 @@ public class ProductDAO {
         ArrayList<Product> productArrayList = new ArrayList<>();
         try {
             String sqlStatement =
-                    "Select a.Id, a.Title, a.ProductCategoryID, a.Description, a.Detail, a.Image, a.Price, a.PriceSale, a.ViewCount " +
-                    "From tb_Product a;";
+                    "Select a.Id, a.Title, a.ProductCategoryID, a.Description, a.Detail, a.Price, a.PriceSale, a.ViewCount, b.Image " +
+                            "From tb_Product a join tb_ProductImage b on a.Id = b.ProductID " +
+                            "where b.IsDefault = 1;";
             Statement stm = connection.createStatement();
             ResultSet resultSet = stm.executeQuery(sqlStatement);
             while (resultSet.next()) {
@@ -29,10 +30,10 @@ public class ProductDAO {
                 product.setIdProductCategory(resultSet.getInt(3));
                 product.setDescriptionProduct(resultSet.getString(4));
                 product.setDetailDescriptionProduct(resultSet.getString(5));
-                product.setImageProduct(resultSet.getString(6));
-                product.setPriceProduct(resultSet.getDouble(7));
-                product.setPriceSaleProduct(resultSet.getDouble(8));
-                product.setViewCountProduct(resultSet.getInt(9));
+                product.setPriceProduct(resultSet.getDouble(6));
+                product.setPriceSaleProduct(resultSet.getDouble(7));
+                product.setViewCountProduct(resultSet.getInt(8));
+                product.setImageProduct(resultSet.getString(9));
 
                 productArrayList.add(product);
             }
@@ -41,4 +42,23 @@ public class ProductDAO {
         }
         return productArrayList;
     }
+
+//    public ArrayList<String> getAllImageProductDefault() {
+//        ArrayList<String> productImageDefaultArrayList = new ArrayList<>();
+//        try {
+//            String sqlStatement =
+//                            "Select b.Image " +
+//                            "From tb_Product a join tb_ProductImage b on a.Id = b.ProductID " +
+//                            "where b.IsDefault = 1;";
+//            Statement stm = connection.createStatement();
+//            ResultSet resultSet = stm.executeQuery(sqlStatement);
+//            while (resultSet.next()) {
+//                String url = resultSet.getString(1);
+//                productImageDefaultArrayList.add(url);
+//            }
+//        } catch (SQLException throwables) {
+//            throwables.printStackTrace();
+//        }
+//        return productImageDefaultArrayList;
+//    }
 }

@@ -39,8 +39,9 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
         holder.textView_CategoryProduct.setText(this.listCategoryName.get(position));
 
         holder.imageView_CategoryProduct.setImageResource(this.listCategoryImage.get(position));
-        holder.textView_CategoryProduct.setOnClickListener(item -> {
-            System.out.println("Ban da bam vao " + item.getContext().toString());
+        holder.imageView_CategoryProduct.setOnClickListener(item -> {
+
+            System.out.println("Ban da bam vao 2 " + item.getViewTreeObserver());
         });
     }
 
