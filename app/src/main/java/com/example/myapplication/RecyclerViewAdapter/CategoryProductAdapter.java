@@ -1,8 +1,6 @@
 package com.example.myapplication.RecyclerViewAdapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myapplication.DatabaseController.ProductCategoryDAO;
 import com.example.myapplication.R;
 
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class CategoryProductAdapter extends RecyclerView.Adapter<CategoryProduct
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_product, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_category_product, parent, false);
         return new ViewHolder(view);
     }
 

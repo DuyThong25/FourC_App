@@ -12,12 +12,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.myapplication.DatabaseController.ProductCategoryDAO;
+import com.example.myapplication.DatabaseController.ProductDAO;
 import com.example.myapplication.DatabaseManager.DatabaseManager;
 import com.example.myapplication.Fragment.HomeFragment;
 import com.example.myapplication.Fragment.MenuFragment;
 import com.example.myapplication.Fragment.OrdersHistoryFragment;
 import com.example.myapplication.Fragment.OthersFragment;
 import com.example.myapplication.Fragment.StoresFragment;
+import com.example.myapplication.Model.Product;
 import com.example.myapplication.databinding.ActivityMainBinding;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -26,6 +28,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView mnBottom;
@@ -40,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
         // Gọi tới kết nối db
         DatabaseManager.getInstance();
 
+//        ProductDAO productDAO = new ProductDAO();
+//        ArrayList<Product> productArrayList = new ArrayList<>();
+//        productArrayList = productDAO.getAllProduct();
+//        for (Product product : productArrayList) {
+//            System.out.println("Xuat du lieuuuuuuuuuuuuuu " + product.getTitleProduct());
+//        }
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //Set fragment default la home

@@ -12,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.myapplication.DatabaseController.ProductCategoryDAO;
+import com.example.myapplication.DatabaseController.ProductDAO;
+import com.example.myapplication.Model.Product;
 import com.example.myapplication.R;
 import com.example.myapplication.RecyclerViewAdapter.CategoryProductAdapter;
+import com.example.myapplication.RecyclerViewAdapter.ProductAdapter;
 
 import java.util.ArrayList;
 
@@ -34,6 +37,7 @@ public class MenuFragment extends Fragment {
     private String mParam2;
     private ArrayList<String> listCategoryName;
     private ArrayList<Integer> listCategoryImage = new ArrayList<>();
+    private ArrayList<Product> productArrayList;
 
 
     public MenuFragment() {
@@ -72,12 +76,41 @@ public class MenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
-        initRecyclerViewCategory(view);
+        // Create Recycler view of category
+        InitRecyclerView_Category(view);
+        // Create Recycler view of product
+        InitRecyclerView_Product(view);
+
         // Inflate the layout for this fragment
         return view;
     }
+    //List product
 
-    private void loadData() {
+    private void InitRecyclerView_Product(View view) {
+        LoadData_Product();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_Product);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        ProductAdapter productAdapter = new ProductAdapter(view.getContext(), productArrayList);
+        recyclerView.setAdapter(productAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.VERTICAL));
+    }
+    private void LoadData_Product() {
+        ProductDAO productDAO = new ProductDAO();
+        productArrayList = productDAO.getAllProduct();
+    }
+    // Category of Product
+    private void InitRecyclerView_Category(View view) {
+        LoadData_Category();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_Category);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        CategoryProductAdapter categoryProductAdapter = new CategoryProductAdapter(view.getContext(), listCategoryName, listCategoryImage);
+        recyclerView.setAdapter(categoryProductAdapter);
+        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.HORIZONTAL));
+    }
+
+    private void LoadData_Category() {
         ProductCategoryDAO productCategoryDAO = new ProductCategoryDAO();
         this.listCategoryName = productCategoryDAO.getAllProductCategory();
 
@@ -85,16 +118,5 @@ public class MenuFragment extends Fragment {
         this.listCategoryImage.add(R.drawable.coffee_machine);
         this.listCategoryImage.add(R.drawable.tea);
         this.listCategoryImage.add(R.drawable.iced_coffee);
-
-    }
-    private void initRecyclerViewCategory(View view) {
-        loadData();
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recycler_view_Category);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        CategoryProductAdapter categoryProductAdapter = new CategoryProductAdapter(view.getContext(), listCategoryName, listCategoryImage);
-        recyclerView.setAdapter(categoryProductAdapter);
-        recyclerView.addItemDecoration(new DividerItemDecoration(view.getContext(),LinearLayoutManager.HORIZONTAL));
-
     }
 }

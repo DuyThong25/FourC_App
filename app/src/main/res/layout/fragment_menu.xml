@@ -24,8 +24,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/item_product">
+        tools:listitem="@layout/item_category_product"></androidx.recyclerview.widget.RecyclerView>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_Product"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
 
-    </androidx.recyclerview.widget.RecyclerView>
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view_Category"
+        app:layout_constraintStart_toStartOf="@+id/recycler_view_Category"
+        app:layout_constraintTop_toBottomOf="@+id/recycler_view_Category"
+        tools:listitem="@layout/item_product" />
 </androidx.constraintlayout.widget.ConstraintLayout>
