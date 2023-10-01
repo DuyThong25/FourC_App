@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView_product_detail"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="74dp"
+        android:padding="10dp"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coffee" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#E6DEDD"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageView_product_detail"
+        app:layout_constraintStart_toStartOf="@+id/imageView_product_detail"
+        app:layout_constraintTop_toBottomOf="@+id/imageView_product_detail">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_NameProduct_Detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="25dp"
+                android:text="Cà Phê Sữa"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView_PriceProduct_Detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+
+                android:text="25,000 đ"
+                android:textColor="#000"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView_NameProduct_Detail" />
+
+            <TextView
+                android:id="@+id/textView3_DescriptionProduct_Detail"
+                android:layout_width="275dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="You should type it in strings.xml file itself, not doing it by add button. Otherwise you will get this; in your strings.xml file and underline in your code"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="@+id/textView_NameProduct_Detail"
+                app:layout_constraintTop_toBottomOf="@+id/textView_NameProduct_Detail" />
+
+            <View
+                android:id="@+id/divider2"
+                android:layout_width="391dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:background="?android:attr/listDivider"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3_DescriptionProduct_Detail" />
+
+            <RadioGroup
+                android:id="@+id/radioButton_Size"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+
+                app:layout_constraintEnd_toEndOf="@+id/divider2"
+                app:layout_constraintStart_toStartOf="@+id/divider2"
+                app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+                <RadioButton
+                    android:id="@+id/radioButton_Size_S"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+
+                    android:background="@drawable/radio_selector_size_of_product"
+                    android:button="@android:color/transparent"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="S"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_Size_M"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+
+                    android:background="@drawable/radio_selector_size_of_product"
+                    android:button="@android:color/transparent"
+                    android:evalation="4dp"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="M"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+
+                <RadioButton
+                    android:id="@+id/radioButton_Size_L"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+
+                    android:background="@drawable/radio_selector_size_of_product"
+                    android:button="@android:color/transparent"
+                    android:evalation="4dp"
+                    android:gravity="center"
+                    android:padding="30dp"
+                    android:text="L"
+                    android:textColor="#000"
+                    android:textSize="20dp" />
+
+            </RadioGroup>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <Button
+        android:id="@+id/button_remove_quantity"
+
+        android:layout_width="56dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="16dp"
+        android:background="#FFFFFF"
+        app:backgroundTint="#FFFFFF"
+        app:icon="@drawable/ic_baseline_remove_24"
+        app:iconTint="#8F1D14"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="12"
+        android:textSize="25dp"
+        android:textColor="#000"
+
+        app:layout_constraintBottom_toBottomOf="@+id/button_remove_quantity"
+        app:layout_constraintStart_toEndOf="@+id/button_remove_quantity"
+        app:layout_constraintTop_toTopOf="@+id/button_remove_quantity" />
+
+    <Button
+        android:id="@+id/button_add_quantity"
+
+        android:layout_width="56dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="10dp"
+        android:background="#FFFFFF"
+        app:backgroundTint="#FFFFFF"
+        app:icon="@drawable/ic_baseline_add_24"
+
+        app:iconTint="#8F1D14"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="@+id/button_remove_quantity" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+
+        android:text="Thêm 25,000 đ"
+        android:textColor="#fff"
+        android:textSize="15dp"
+        app:backgroundTint="#8F1D14"
+
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/button_remove_quantity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/button_add_quantity"
+        app:layout_constraintTop_toTopOf="@+id/button_remove_quantity" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

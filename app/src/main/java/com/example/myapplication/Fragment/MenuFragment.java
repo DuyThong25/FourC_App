@@ -44,10 +44,11 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
     private ArrayList<ProductCategory> listCategoryName = new ArrayList<>();
     private ArrayList<Integer> listCategoryImage = new ArrayList<>();
     private ArrayList<Product> productArrayList = new ArrayList<>();
+    private ArrayList<Product> productArrayListFilter = new ArrayList<>();
+
     private RecyclerView recyclerView_Product;
     private RecyclerView recyclerView_Category;
     private static ProductAdapter productAdapter;
-    private ArrayList<Product> productArrayListFilter = new ArrayList<>();
 
     public MenuFragment() {
         // Required empty public constructor
@@ -128,8 +129,8 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
 
         this.listCategoryImage.add(R.drawable.coffee);
         this.listCategoryImage.add(R.drawable.coffee_machine);
-        this.listCategoryImage.add(R.drawable.tea);
         this.listCategoryImage.add(R.drawable.iced_coffee);
+        this.listCategoryImage.add(R.drawable.tea);
     }
 
     @Override

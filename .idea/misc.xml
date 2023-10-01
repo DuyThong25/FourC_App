@@ -4,12 +4,17 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable-v24/category.xml" value="0.1" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.17" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.2005" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_others_24.xml" value="0.2005" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_restaurant_menu_24.xml" value="0.2005" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_settings_backup_restore_24.xml" value="0.2005" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/ic_baseline_storefront_24.xml" value="0.2005" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/radio_normal_size_of_product.xml" value="0.17" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/radio_selected_size_of_product.xml" value="0.17" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/drawable/radio_selector_size_of_product.xml" value="0.17" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/bottom_diaglog_product_detail.xml" value="0.264" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/fragment_home.xml" value="0.20244565217391305" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/fragment_menu.xml" value="0.2" />
         <entry key="..\:/BTnam4/ThuongMaiDienTu/DeAnMobile/app/src/main/res/layout/fragment_orders_history.xml" value="0.20244565217391305" />
