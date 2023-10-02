@@ -3,7 +3,7 @@ package com.example.myapplication.DatabaseManager;
 import java.sql.Connection;
 
 public class DatabaseManager {
-    private static DatabaseManager instance; // dùng singleton
+    private static DatabaseManager instance; // dung singleton
     private Connection connection;
     private ConSql conSql = new ConSql();
 
@@ -19,7 +19,7 @@ public class DatabaseManager {
     }
 
     public void openConnection() {
-        connection = conSql.conclass();
+        connection = conSql.ConClass();
     }
 
     public Connection getConnection() {

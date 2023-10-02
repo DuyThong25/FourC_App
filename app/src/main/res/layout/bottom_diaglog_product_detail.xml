@@ -35,9 +35,8 @@
                 android:id="@+id/textView_NameProduct_Detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
                 android:text="Cà Phê Sữa"
                 android:textColor="#000"
                 android:textSize="18dp"
@@ -49,7 +48,7 @@
                 android:id="@+id/textView_PriceProduct_Detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="18dp"
 
                 android:text="25,000 đ"
                 android:textColor="#000"
@@ -62,7 +61,7 @@
                 android:id="@+id/textView3_DescriptionProduct_Detail"
                 android:layout_width="275dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="12dp"
                 android:text="You should type it in strings.xml file itself, not doing it by add button. Otherwise you will get this; in your strings.xml file and underline in your code"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="@+id/textView_NameProduct_Detail"
@@ -111,7 +110,6 @@
 
                     android:background="@drawable/radio_selector_size_of_product"
                     android:button="@android:color/transparent"
-                    android:evalation="4dp"
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="M"
@@ -126,7 +124,6 @@
 
                     android:background="@drawable/radio_selector_size_of_product"
                     android:button="@android:color/transparent"
-                    android:evalation="4dp"
                     android:gravity="center"
                     android:padding="30dp"
                     android:text="L"
@@ -154,11 +151,11 @@
         app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_QuantityProduct_Detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:text="12"
+        android:text="1"
         android:textSize="25dp"
         android:textColor="#000"
 
@@ -177,11 +174,11 @@
         app:icon="@drawable/ic_baseline_add_24"
 
         app:iconTint="#8F1D14"
-        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintStart_toEndOf="@+id/textView_QuantityProduct_Detail"
         app:layout_constraintTop_toTopOf="@+id/button_remove_quantity" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/button_AddCart_Product_Detail"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
 

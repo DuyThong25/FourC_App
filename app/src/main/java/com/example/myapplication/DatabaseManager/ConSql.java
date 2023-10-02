@@ -6,17 +6,16 @@ import android.util.Log;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.util.Properties;
 
 public class ConSql {
     Connection con;
 
     @SuppressLint("NewApi")
-    public Connection conclass() {
+    public Connection ConClass() {
         String ip = "SQL8006.site4now.net", port = "1433", db = "db_a9f440_login", username = "db_a9f440_login_admin", password = "Thanh260599";
         StrictMode.ThreadPolicy a = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(a);
-        String connectURL = null;
+        String connectURL;
 
         try {
             Class.forName("net.sourceforge.jtds.jdbc.Driver");

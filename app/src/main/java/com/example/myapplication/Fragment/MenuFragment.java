@@ -1,5 +1,7 @@
 package com.example.myapplication.Fragment;
 
+import static java.lang.Integer.parseInt;
+
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,14 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.DatabaseController.ProductCategoryDAO;
 import com.example.myapplication.DatabaseController.ProductDAO;
 import com.example.myapplication.Model.Product;
@@ -22,7 +31,11 @@ import com.example.myapplication.Model.ProductCategorySelectedManager;
 import com.example.myapplication.R;
 import com.example.myapplication.RecyclerViewAdapter.CategoryProductAdapter;
 import com.example.myapplication.RecyclerViewAdapter.ProductAdapter;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -31,7 +44,7 @@ import java.util.Collections;
  * Use the {@link MenuFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MenuFragment extends Fragment implements CategoryProductAdapter.Listener{
+public class MenuFragment extends Fragment implements CategoryProductAdapter.Listener, ProductAdapter.Listener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -49,6 +62,7 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
     private RecyclerView recyclerView_Product;
     private RecyclerView recyclerView_Category;
     private static ProductAdapter productAdapter;
+    private BottomSheetDialog bottomSheetDialog;
 
     public MenuFragment() {
         // Required empty public constructor
@@ -89,6 +103,9 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         InitRecyclerView_Category(view);
         // Create Recycler view of product
         InitRecyclerView_Product(view);
+        // Tạo bootom sheet dialog
+        bottomSheetDialog = new BottomSheetDialog(view.getContext());
+
 
         // Inflate the layout for this fragment
         return view;
@@ -100,7 +117,7 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
         recyclerView_Product = view.findViewById(R.id.recycler_view_Product);
         recyclerView_Product.setLayoutManager(linearLayoutManager);
-        productAdapter = new ProductAdapter(view.getContext(), productArrayListFilter);
+        productAdapter = new ProductAdapter(view.getContext(), productArrayListFilter, MenuFragment.this);
         recyclerView_Product.setAdapter(productAdapter);
         recyclerView_Product.addItemDecoration(new DividerItemDecoration(view.getContext(), LinearLayoutManager.VERTICAL));
 
@@ -133,6 +150,7 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         this.listCategoryImage.add(R.drawable.tea);
     }
 
+    // Nhấn vào category
     @Override
     public void onItemListener_Category(int pos, ProductCategory productCategory) {
         ProductCategorySelectedManager.getInstance().setSelectedCategoryId(this.listCategoryName.get(pos).getProductCategoryID());
@@ -148,5 +166,98 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         productArrayListFilter.clear();
         productArrayListFilter.addAll(newProducts);
         productAdapter.notifyDataSetChanged();
+    }
+
+    //Nhấn vào product
+    @Override
+    public void onItemListener_Product(int pos, Product product) {
+        View view = getLayoutInflater().inflate(R.layout.bottom_diaglog_product_detail, null, false);
+
+
+        CreateDialog(product, view);
+        bottomSheetDialog.setContentView(view);
+        bottomSheetDialog.show();
+
+    }
+
+    private void CreateDialog(Product product, View view) {
+        ImageView imageView_product_detail;
+        TextView textView_NameProduct_Detail, textView_PriceProduct_Detail,
+                textView_DescriptionProduct_Detail, textView_QuantityProduct_Detail;
+        Button btn_AddQuantity, btn_RemoveQuantity, button_AddCart_Product_Detail;
+
+        // anh xa
+        imageView_product_detail = view.findViewById(R.id.imageView_product_detail);
+        textView_NameProduct_Detail = view.findViewById(R.id.textView_NameProduct_Detail);
+        textView_PriceProduct_Detail = view.findViewById(R.id.textView_PriceProduct_Detail);
+        textView_DescriptionProduct_Detail = view.findViewById(R.id.textView3_DescriptionProduct_Detail);
+        textView_QuantityProduct_Detail = view.findViewById(R.id.textView_QuantityProduct_Detail);
+        btn_AddQuantity = view.findViewById(R.id.button_add_quantity);
+        btn_RemoveQuantity = view.findViewById(R.id.button_remove_quantity);
+        button_AddCart_Product_Detail = view.findViewById(R.id.button_AddCart_Product_Detail);
+
+        // Set hinh anh
+        String urlImage = product.getImageProduct();
+        if (urlImage != null) {
+            urlImage = "http://anhthanh260599-001-site1.ftempurl.com" + urlImage;
+            Glide.with(this.getContext())
+                    .load(urlImage)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true)
+                    .fitCenter()
+                    .into(imageView_product_detail);
+        } else {
+            imageView_product_detail.setImageResource(R.drawable.no_image);
+        }
+        // Set ten san pham
+        textView_NameProduct_Detail.setText(product.getTitleProduct());
+        // Set text cho gia san pham
+        if (product.getPriceSaleProduct() == 0.00) {
+            textView_PriceProduct_Detail.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(product.getPriceProduct())));
+        }else {
+            textView_PriceProduct_Detail.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(product.getPriceSaleProduct())));
+        }
+        //Set chữ cho button thêm vào cart
+        button_AddCart_Product_Detail.setText("THÊM "+ textView_PriceProduct_Detail.getText());
+        // Set text cho mo ta
+        textView_DescriptionProduct_Detail.setText(product.getDescriptionProduct());
+
+        // Handle Event
+        btn_AddQuantity.setOnClickListener(view1 -> {
+            int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
+            double price = product.getPriceSaleProduct() == 0.00 ? product.getPriceProduct() : product.getPriceSaleProduct();
+            double sum = price;
+
+            if(quantity > 100 ) {
+                Toast.makeText(this.getContext(), "Không được nhiều hơn 100", Toast.LENGTH_SHORT).show();
+            }else {
+                quantity += 1;
+                sum = price * quantity;
+            }
+            button_AddCart_Product_Detail.setText("THÊM " +
+                    (String.format(new DecimalFormat("#,### đ")
+                    .format(sum))));
+            textView_QuantityProduct_Detail.setText(String.valueOf(quantity));
+        });
+        btn_RemoveQuantity.setOnClickListener(view1 -> {
+            int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
+            double price = product.getPriceSaleProduct() == 0.00 ? product.getPriceProduct() : product.getPriceSaleProduct();
+            double sum = price;
+
+            if(quantity == 1) {
+                Toast.makeText(this.getContext(), "Stopppp T.T", Toast.LENGTH_SHORT).show();
+            }else {
+                quantity -= 1;
+                sum = price * quantity;
+
+            }
+            button_AddCart_Product_Detail.setText("THÊM " +
+                    (String.format(new DecimalFormat("#,### đ")
+                            .format(sum))));
+            textView_QuantityProduct_Detail.setText(String.valueOf(quantity));
+        });
+
     }
 }

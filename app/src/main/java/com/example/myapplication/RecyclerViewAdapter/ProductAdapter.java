@@ -1,5 +1,6 @@
 package com.example.myapplication.RecyclerViewAdapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Paint;
 import android.view.LayoutInflater;
@@ -15,19 +16,23 @@ import com.bumptech.glide.Glide;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.Model.Product;
+import com.example.myapplication.Model.ProductCategory;
 import com.example.myapplication.R;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
     ArrayList<Product> productArrayList = new ArrayList<>();
+    Listener listener;
 
     Context context;
 
-    public ProductAdapter(Context context, ArrayList<Product> productArrayList) {
+    public ProductAdapter(Context context, ArrayList<Product> productArrayList, Listener listener) {
         this.productArrayList = productArrayList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -38,7 +43,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         Product product = productArrayList.get(position);
 
         holder.TitleProduct.setText(product.getTitleProduct());
@@ -52,7 +57,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             holder.PriceSaleProduct.setText(holder.PriceProduct.getText());
             holder.PriceProduct.setVisibility(View.GONE);
         } else {
-
             // Tạo underline cho price
             holder.PriceProduct.setPaintFlags(holder.PriceProduct.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
         }
@@ -70,6 +74,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
         } else {
             holder.imageView_product.setImageResource(R.drawable.no_image);
         }
+
+        // Tạo listener gọi bên menu fragment
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                listener.onItemListener_Product(position, product);
+            }
+        });
     }
 
     @Override
@@ -92,5 +104,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
         }
     }
-
+    public interface Listener{
+        void onItemListener_Product(int pos, Product product);
+    }
 }
