@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/imageView_Product_Cart"
+        android:layout_width="100dp"
+        android:layout_height="80dp"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coffee" />
+
+    <TextView
+        android:id="@+id/textView_NameProduct_In_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="5dp"
+
+        android:text="Cà Phê Sữa"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:textStyle="bold"
+
+        app:layout_constraintStart_toEndOf="@+id/imageView_Product_Cart"
+        app:layout_constraintTop_toTopOf="@+id/imageView_Product_Cart" />
+
+    <TextView
+        android:id="@+id/textView_SizeProduct_In_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+
+        android:text="M"
+        android:textSize="16dp"
+        android:textStyle="bold"
+
+        app:layout_constraintStart_toStartOf="@+id/textView_NameProduct_In_Cart"
+        app:layout_constraintTop_toBottomOf="@+id/textView_NameProduct_In_Cart" />
+
+    <TextView
+        android:id="@+id/textView_ProductQuantity_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+
+        android:text="(1x)"
+        android:textSize="14dp"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="@+id/textView_NameProduct_In_Cart"
+        app:layout_constraintStart_toEndOf="@+id/textView_NameProduct_In_Cart"
+        app:layout_constraintTop_toTopOf="@+id/textView_NameProduct_In_Cart" />
+
+    <TextView
+        android:id="@+id/textView_ProductPrice_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+
+        android:text="25,000 đ"
+        android:textColor="#000"
+        android:textSize="18dp"
+        android:textStyle="bold"
+
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView_NameProduct_In_Cart" />
+</androidx.constraintlayout.widget.ConstraintLayout>

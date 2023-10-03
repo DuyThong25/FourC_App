@@ -1,6 +1,8 @@
 package com.example.myapplication.Model;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private int idProduct;
     private String titleProduct;
     private int idProductCategory;
