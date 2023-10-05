@@ -18,12 +18,11 @@
         android:id="@+id/textView_NameProduct_In_Cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginTop="14dp"
 
         android:text="Cà Phê Sữa"
         android:textColor="#000"
-        android:textSize="18dp"
+        android:textSize="17dp"
         android:textStyle="bold"
 
         app:layout_constraintStart_toEndOf="@+id/imageView_Product_Cart"
@@ -33,40 +32,55 @@
         android:id="@+id/textView_SizeProduct_In_Cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
 
-        android:text="M"
-        android:textSize="16dp"
-        android:textStyle="bold"
-
-        app:layout_constraintStart_toStartOf="@+id/textView_NameProduct_In_Cart"
-        app:layout_constraintTop_toBottomOf="@+id/textView_NameProduct_In_Cart" />
-
-    <TextView
-        android:id="@+id/textView_ProductQuantity_Cart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-
-        android:text="(1x)"
+        android:layout_marginStart="5dp"
+        android:text="(M)"
         android:textSize="14dp"
-        android:textStyle="bold"
 
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/textView_NameProduct_In_Cart"
         app:layout_constraintStart_toEndOf="@+id/textView_NameProduct_In_Cart"
         app:layout_constraintTop_toTopOf="@+id/textView_NameProduct_In_Cart" />
 
     <TextView
-        android:id="@+id/textView_ProductPrice_Cart"
+        android:id="@+id/textView_ProductQuantity_Cart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="16dp"
+
+        android:layout_marginStart="8dp"
+        android:text="(1x)"
+
+        android:textSize="14dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/textView_PriceProduct_Cart"
+        app:layout_constraintStart_toEndOf="@+id/textView_PriceProduct_Cart"
+        app:layout_constraintTop_toTopOf="@+id/textView_PriceProduct_Cart"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView_SumProductPrice_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="11dp"
 
         android:text="25,000 đ"
         android:textColor="#000"
-        android:textSize="18dp"
+        android:textSize="16dp"
         android:textStyle="bold"
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView_NameProduct_In_Cart" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/textView_PriceProduct_Cart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25,000 đ"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        app:layout_constraintStart_toStartOf="@+id/textView_NameProduct_In_Cart"
+        app:layout_constraintTop_toBottomOf="@+id/textView_NameProduct_In_Cart"
+        app:layout_constraintVertical_bias="0.0" />
+
+       </androidx.constraintlayout.widget.ConstraintLayout>

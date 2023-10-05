@@ -116,8 +116,6 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         InitRecyclerView_Category(view);
         // Create Recycler view of product
         InitRecyclerView_Product(view);
-        // Tạo bottom sheet dialog
-        bottomSheetDialog = new BottomSheetDialog(view.getContext());
 
         //Tạo floating button
         floatingActionButton_Cart = view.findViewById(R.id.floatingActionButton_Cart);
@@ -196,8 +194,8 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
     @Override
     public void onItemListener_Product(int pos, Product product) {
         View view = getLayoutInflater().inflate(R.layout.bottom_diaglog_product_detail, null, false);
-
-
+        // Tạo bottom sheet dialog
+        bottomSheetDialog = new BottomSheetDialog(view.getContext());
         CreateDialog(product, view);
         bottomSheetDialog.setContentView(view);
         bottomSheetDialog.show();
@@ -221,6 +219,7 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         btn_RemoveQuantity = view.findViewById(R.id.button_remove_quantity);
         button_AddCart_Product_Detail = view.findViewById(R.id.button_AddCart_Product_Detail);
         radioGroup = view.findViewById(R.id.RadioGroup_Size);
+
 
         // Set hinh anh
         String urlImage = product.getImageProduct();
@@ -254,24 +253,26 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
         //Tang so luong
         btn_AddQuantity.setOnClickListener(view1 -> {
             int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
-            double price = product.getPriceSaleProduct() == 0.00 ? product.getPriceProduct() : product.getPriceSaleProduct();
+            double price = Double.parseDouble(textView_PriceProduct_Detail.getText().toString().replace(",","").replace(" đ",""));
             double sum = price;
 
             if (quantity > 100) {
-                Toast.makeText(this.getContext(), "Không được nhiều hơn 100", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this.getContext(), "Stopppp T.T", Toast.LENGTH_SHORT).show();
             } else {
                 quantity += 1;
                 sum = price * quantity;
             }
+
             button_AddCart_Product_Detail.setText("THÊM " +
                     (String.format(new DecimalFormat("#,### đ")
                             .format(sum))));
             textView_QuantityProduct_Detail.setText(String.valueOf(quantity));
         });
         // Giam so luong
-        btn_RemoveQuantity.setOnClickListener(view1 -> {
+        btn_RemoveQuantity.setOnClickListener(view1 ->
+        {
             int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
-            double price = product.getPriceSaleProduct() == 0.00 ? product.getPriceProduct() : product.getPriceSaleProduct();
+            double price = Double.parseDouble(textView_PriceProduct_Detail.getText().toString().replace(",","").replace(" đ",""));
             double sum = price;
 
             if (quantity == 1) {
@@ -279,7 +280,7 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
             } else {
                 quantity -= 1;
                 sum = price * quantity;
-
+                System.out.println("sum sau khi -: " + sum);
             }
             button_AddCart_Product_Detail.setText("THÊM " +
                     (String.format(new DecimalFormat("#,### đ")
@@ -287,8 +288,34 @@ public class MenuFragment extends Fragment implements CategoryProductAdapter.Lis
             textView_QuantityProduct_Detail.setText(String.valueOf(quantity));
         });
 
+        // Chọn size sản phẩm
+        radioGroup.setOnCheckedChangeListener((radioGroup1, i) ->
+        {
+            int buttonId = radioGroup.getCheckedRadioButtonId();
+            double price = product.getPriceSaleProduct() == 0.00 ? product.getPriceProduct() : product.getPriceSaleProduct();
+            int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
+            double priceUpSize = 0;
+
+            switch (buttonId) {
+                case R.id.radioButton_Size_M:
+                    priceUpSize = price + 5000;
+                    break;
+                case R.id.radioButton_Size_L:
+                    priceUpSize = price + 10000;
+                    break;
+                case R.id.radioButton_Size_S:
+                    priceUpSize = price + 0;
+                            break;
+            }
+            textView_PriceProduct_Detail.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(priceUpSize)));
+            button_AddCart_Product_Detail.setText("THÊM " +
+                    (String.format(new DecimalFormat("#,### đ")
+                            .format(priceUpSize * quantity))));
+        });
         // Them vao gio hang
-        button_AddCart_Product_Detail.setOnClickListener(view1 -> {
+        button_AddCart_Product_Detail.setOnClickListener(view1 ->
+        {
             int quantity = parseInt(textView_QuantityProduct_Detail.getText().toString());
             int sizeOfCart = this.product_Cart_ArrayList.size();
             RadioButton radioButton = view.findViewById(radioGroup.getCheckedRadioButtonId()); // Lay id cua radio button dang duoc chon

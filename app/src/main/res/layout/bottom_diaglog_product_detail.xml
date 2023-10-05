@@ -59,7 +59,7 @@
 
             <TextView
                 android:id="@+id/textView3_DescriptionProduct_Detail"
-                android:layout_width="275dp"
+                android:layout_width="260dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="You should type it in strings.xml file itself, not doing it by add button. Otherwise you will get this; in your strings.xml file and underline in your code"
@@ -132,8 +132,6 @@
                     android:textSize="20dp" />
 
             </RadioGroup>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

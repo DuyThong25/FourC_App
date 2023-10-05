@@ -1,7 +1,6 @@
 package com.example.myapplication.RecyclerViewAdapter;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.myapplication.Model.CartProduct;
 import com.example.myapplication.Model.Product;
+import com.example.myapplication.Model.ProductCategory;
 import com.example.myapplication.R;
 
 import java.text.DecimalFormat;
@@ -23,10 +23,11 @@ import java.util.ArrayList;
 public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.ViewHolder> {
     ArrayList<CartProduct> product_Cart_ArrayList;
     Context context;
-
-    public CartProductAdapter( Context context, ArrayList<CartProduct> product_Cart_ArrayList) {
+    Listener listener;
+    public CartProductAdapter( Context context, ArrayList<CartProduct> product_Cart_ArrayList, Listener listener) {
         this.product_Cart_ArrayList = product_Cart_ArrayList;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
@@ -56,19 +57,27 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             holder.imageView_Product_Cart.setImageResource(R.drawable.no_image);
         }
         holder.textView_ProductName_Cart.setText(product.getTitleProduct());
-        // Set text cho gia san pham
+        // Set text cho gia tong san pham
         if (product.getPriceSaleProduct() == 0.00) {
-            holder.textView_ProductName_Cart.setText(String.format(new DecimalFormat("#,### đ")
+            holder.textView_SumProductPrice_Cart.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(product.getPriceProduct() * quantity)));
+            holder.textView_PriceProduct_Cart.setText(String.format(new DecimalFormat("#,### đ")
                     .format(product.getPriceProduct())));
         }else {
-            holder.textView_ProductName_Cart.setText(String.format(new DecimalFormat("#,### đ")
+            holder.textView_SumProductPrice_Cart.setText(String.format(new DecimalFormat("#,### đ")
+                    .format(product.getPriceSaleProduct() * quantity)));
+            holder.textView_PriceProduct_Cart.setText(String.format(new DecimalFormat("#,### đ")
                     .format(product.getPriceSaleProduct())));
         }
 
         // Set text cho size
-        holder.textView_ProductSize_Cart.setText(size);
+        holder.textView_ProductSize_Cart.setText("("+ size + ")");
         // Set text cho quantity
         holder.textView_ProductQuantity_Cart.setText("(" + quantity + "x)");
+
+        holder.itemView. setOnClickListener(view -> {
+            listener.onItemListener_Product_Cart(position, product, quantity, size);
+        });
     }
 
     @Override
@@ -78,7 +87,7 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView_Product_Cart;
-        TextView textView_ProductName_Cart, textView_ProductQuantity_Cart, textView_ProductSize_Cart, textView_ProductPrice_Cart;
+        TextView textView_ProductName_Cart, textView_ProductQuantity_Cart, textView_ProductSize_Cart, textView_PriceProduct_Cart, textView_SumProductPrice_Cart;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,7 +96,11 @@ public class CartProductAdapter extends RecyclerView.Adapter<CartProductAdapter.
             textView_ProductName_Cart = itemView.findViewById(R.id.textView_NameProduct_In_Cart);
             textView_ProductQuantity_Cart = itemView.findViewById(R.id.textView_ProductQuantity_Cart);
             textView_ProductSize_Cart = itemView.findViewById(R.id.textView_SizeProduct_In_Cart);
-            textView_ProductPrice_Cart = itemView.findViewById(R.id.textView_ProductPrice_Cart);
+            textView_PriceProduct_Cart = itemView.findViewById(R.id.textView_PriceProduct_Cart);
+            textView_SumProductPrice_Cart = itemView.findViewById(R.id.textView_SumProductPrice_Cart);
         }
+    }
+    public interface Listener{
+        void onItemListener_Product_Cart(int pos, Product product, int quantity, String size);
     }
 }
